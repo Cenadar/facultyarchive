@@ -2,7 +2,7 @@ INSERT INTO authors(au_second_name, au_first_name, au_fathers_name) VALUES
 	("Glushkov", "Victor", "Mykhailovych"),
 	("Anisimov", "Anatolii", "Vasyliovych"),
 	("Medvedev", "Mykhailo", "Gennadiiovych"),
-	("Glushkov", "Victor", "Mykhailovych"),
+	("Shkilnak", "Stepan", "Stepanovych"),
 	("Bui", "Dmytro", "Borysovych"),
 	("Klushyn", "Dmytro", "Anatoliiovych"),
 	("Stavrovsky", "Andrii", "Borysovych"),
@@ -32,7 +32,7 @@ INSERT INTO faculties(fc_name) VALUES
 
 INSERT INTO departments(dp_fc, dp_name) VALUES
 	(1, "International Relations"),
-	(1, "International Rights"),
+	(1, "International Law"),
 	(1, "International Economical Relations"),
 	(1, "International Business"),
 	(1, "International Information"),

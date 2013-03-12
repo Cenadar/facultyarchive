@@ -7,13 +7,12 @@ CREATE TABLE authors (
 	au_second_name VARCHAR(255) NOT NULL,
 	au_first_name VARCHAR(255) NOT NULL,
 	au_fathers_name VARCHAR(255) NOT NULL,
-	PRIMARY KEY (au_id));
+	PRIMARY KEY(au_id));
 
 CREATE TABLE faculties (
 	fc_id INT NOT NULL AUTO_INCREMENT,
 	fc_name VARCHAR(255) NOT NULL,
 	PRIMARY KEY(fc_id));
-
 
 CREATE TABLE departments (
 	dp_id INT NOT NULL AUTO_INCREMENT,
