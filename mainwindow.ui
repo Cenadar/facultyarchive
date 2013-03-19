@@ -6,73 +6,58 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>496</height>
+    <width>342</width>
+    <height>191</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>400</y>
-      <width>91</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
-    </property>
-   </widget>
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>669</width>
-      <height>391</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="Authors" name="tab">
-     <attribute name="title">
-      <string>Authors</string>
-     </attribute>
-    </widget>
-    <widget class="Faculties" name="tab_2">
-     <attribute name="title">
-      <string>Faculties</string>
-     </attribute>
-    </widget>
-    <widget class="Departments" name="tab_3">
-     <attribute name="title">
-      <string>Departments</string>
-     </attribute>
-    </widget>
-    <widget class="Books" name="tab_4">
-     <attribute name="title">
-      <string>Books</string>
-     </attribute>
-    </widget>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="authorsButton">
+      <property name="text">
+       <string>Authors</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="facultiesButton">
+      <property name="text">
+       <string>Faculties</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="departmentsButton">
+      <property name="text">
+       <string>Departments</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="booksButton">
+      <property name="text">
+       <string>Books</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="closeButton">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>678</width>
+     <width>342</width>
      <height>21</height>
     </rect>
    </property>
@@ -88,47 +73,21 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>Authors</class>
-   <extends>QWidget</extends>
-   <header>authors.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Faculties</class>
-   <extends>QWidget</extends>
-   <header>faculties.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Departments</class>
-   <extends>QWidget</extends>
-   <header>departments.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Books</class>
-   <extends>QWidget</extends>
-   <header>books.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>623</x>
-     <y>367</y>
+     <x>63</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>448</x>
-     <y>367</y>
+     <x>114</x>
+     <y>190</y>
     </hint>
    </hints>
   </connection>

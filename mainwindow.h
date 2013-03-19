@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtSql>
 
 namespace Ui {
   class MainWindow;
@@ -15,10 +16,13 @@ class MainWindow: public QMainWindow {
   ~MainWindow();
   
 private slots:
-  void on_pushButton_clicked();
+  void on_authorsButton_clicked();
+  void on_facultiesButton_clicked();
+  void on_departmentsButton_clicked();
+  void on_booksButton_clicked();
 
 private:
-  Ui::MainWindow *ui;
+  Ui::MainWindow *ui;  
 };
 
 #endif // MAINWINDOW_H

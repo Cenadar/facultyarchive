@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     authors.cpp \
     faculties.cpp \
     departments.cpp \
-    books.cpp
+    books.cpp \
+    databaseconnector.cpp
 
 HEADERS  += mainwindow.h \
     authors.h \
     faculties.h \
     departments.h \
-    books.h
+    books.h \
+    databaseconnector.h
 
 FORMS    += mainwindow.ui \
     authors.ui \
