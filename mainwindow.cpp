@@ -17,12 +17,12 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_authorsButton_clicked() {
-  Authors w(this);
+  Authors w(_db, this);
   w.exec();
 }
 
 void MainWindow::on_facultiesButton_clicked() {
-  Faculties w(this);
+  Faculties w(_db, this);
   w.exec();
 }
 

@@ -23,8 +23,8 @@ Departments::Departments(QSqlDatabase& db, QWidget *parent): QDialog(parent),
 }
 
 Departments::~Departments() {
-  delete ui;
   delete _model;
+  delete ui;
 }
 
 void Departments::on_delButton_clicked() {

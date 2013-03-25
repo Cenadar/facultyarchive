@@ -17,16 +17,24 @@ class Books: public QDialog {
 public:
   explicit Books(QSqlDatabase& db, QWidget *parent = 0);
   ~Books();
+
+  void paintEvent(QPaintEvent *);
   
 private slots:
   void on_delButton_clicked();
 
   void on_addButton_clicked();
 
+  void on_tableView_clicked(const QModelIndex &);
+
+  void on_addAuthorButton_clicked();
+
 private:
   Ui::Books *ui;
   QSqlRelationalTableModel* _model;
+  QSqlQueryModel* _modelAuthors;
   QSqlDatabase* _db;
+  int _currentId;
 };
 
 #endif // BOOKS_H
