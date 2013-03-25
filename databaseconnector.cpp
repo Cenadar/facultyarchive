@@ -1,10 +1,14 @@
 #include "databaseconnector.h"
+#include <QDebug>
+#include <QtSql>
 
-static void QSqlDatabase::init(const QSqlDatabase& db) {
+void DatabaseConnector::init(QSqlDatabase& db) {
   db = QSqlDatabase(QSqlDatabase::addDatabase("QMYSQL"));
   db.setHostName("localhost");
   db.setDatabaseName("farch");
   db.setUserName("fviewer");
   db.setPassword("superpass");
-  db.open();
+  if (!db.open()) {
+    qDebug() << db.lastError().text();
+  }
 }

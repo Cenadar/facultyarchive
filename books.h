@@ -1,7 +1,7 @@
 #ifndef BOOKS_H
 #define BOOKS_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QtSql>
 #include <QtGui>
 #include <QSqlDatabase>
@@ -11,11 +11,11 @@ namespace Ui {
   class Books;
 }
 
-class Books: public QWidget {
+class Books: public QDialog {
   Q_OBJECT
   
 public:
-  explicit Books(QWidget *parent = 0);
+  explicit Books(QSqlDatabase& db, QWidget *parent = 0);
   ~Books();
   
 private slots:
@@ -25,8 +25,8 @@ private slots:
 
 private:
   Ui::Books *ui;
-  QSqlTableModel *model;
-  QSqlDatabase db;
+  QSqlRelationalTableModel* _model;
+  QSqlDatabase* _db;
 };
 
 #endif // BOOKS_H

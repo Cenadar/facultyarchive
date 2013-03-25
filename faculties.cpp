@@ -1,10 +1,7 @@
 #include "faculties.h"
 #include "ui_faculties.h"
 
-Faculties::Faculties(QWidget *parent) :
-  QWidget(parent),
-  ui(new Ui::Faculties)
-{
+Faculties::Faculties(QWidget *parent): QDialog(parent), ui(new Ui::Faculties) {
   ui->setupUi(this);
 }
 

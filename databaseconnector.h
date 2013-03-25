@@ -5,7 +5,7 @@
 
 class DatabaseConnector {
  public:
-  static void init(const QSqlDatabase& db);
+  static void init(QSqlDatabase& db);
 };
 
 #endif // DATABASECONNECTOR_H

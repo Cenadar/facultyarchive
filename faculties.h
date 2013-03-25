@@ -1,14 +1,13 @@
 #ifndef FACULTIES_H
 #define FACULTIES_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
   class Faculties;
 }
 
-class Faculties : public QWidget
-{
+class Faculties: public QDialog {
   Q_OBJECT
   
 public:

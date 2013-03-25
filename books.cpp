@@ -1,27 +1,29 @@
 #include "books.h"
 #include "ui_books.h"
-#include "databaseconnector.h"
+#include "idretriever.h"
 
-Books::Books(QWidget *parent): QWidget(parent), ui(new Ui::Books) {
+#include <QtCore>
+#include <QtSql>
+#include <QtGui>
+#include <QSqlRelationalTableModel>
+
+Books::Books(QSqlDatabase& db, QWidget *parent): QDialog(parent),
+    ui(new Ui::Books), _db(&db) {
   ui->setupUi(this);
 
-  db = QSqlDatabase::addDatabase("QMYSQL");
-  db.setHostName("localhost");
-  db.setDatabaseName("farch");
-  db.setUserName("fviewer");
-  db.setPassword("superpass");
-  db.open();
+  _model = new QSqlRelationalTableModel(this, *_db);
+  _model->setTable("books");
+  _model->setEditStrategy(QSqlTableModel::OnFieldChange);
+  _model->setRelation(5, QSqlRelation("departments", "dp_id", "dp_name"));
+  _model->select();
 
-  model = new QSqlTableModel(this, db);
-  model->setTable("books");
-  model->setEditStrategy(QSqlTableModel::OnFieldChange);
-  model->select();
-  ui->tableView->setModel(model);
-//  model->removeColumn(0);
+  QTableView* view = ui->tableView;
+  view->setModel(_model);
+  view->setItemDelegate(new QSqlRelationalDelegate(view));
 }
 
 Books::~Books() {
-  delete model;
+  delete _model;
   delete ui;
 }
 
@@ -29,16 +31,35 @@ void Books::on_delButton_clicked(){
   QModelIndex idx = ui->tableView->currentIndex();
   if (idx.row() == -1) return;
 
-  QSqlQuery query(db);
-  query.prepare("DELETE FROM books WHERE bk_id = :id;");
-  query.bindValue(":id", model->index(idx.row(), 0).data().toInt());
+  QSqlQuery query(*_db);
+  query.prepare("DELETE FROM books_authors WHERE bka_bk = :id;");
+  query.bindValue(":id", _model->index(idx.row(), 0).data().toInt());
   query.exec();
-  model->select();
+
+  query.prepare("DELETE FROM books WHERE bk_id = :id;");
+  query.bindValue(":id", _model->index(idx.row(), 0).data().toInt());
+  query.exec();
+
+  if (query.lastError().isValid()) {
+    qDebug() << query.lastQuery();
+    qDebug() << query.lastError();
+  }
+  _model->select();
 }
 
 void Books::on_addButton_clicked() {
-  QSqlQuery query(db);
-  query.exec("INSERT INTO books(bk_dp, bk_name, bk_size, bk_publisher, bk_year)"
-             " VALUES (-1, '', NULL, NULL, NULL),");
-  model->select();
+  int dp_id = IdRetriever::getId(*_db, "departments", "dp_id", "dp_name",
+                                 "Department", "Choose department", this);
+  if (dp_id == -1) return;
+
+  QSqlQuery query(*_db);
+  query.prepare("INSERT INTO books(bk_dp, bk_name, bk_size, bk_publisher, bk_year)"
+                " VALUES (:dp_id, '', NULL, NULL, NULL);");
+  query.bindValue(":dp_id", dp_id);
+  query.exec();
+  if (query.lastError().isValid()) {
+    qDebug() << query.lastQuery();
+    qDebug() << query.lastError();
+  }
+  _model->select();
 }

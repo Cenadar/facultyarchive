@@ -1,7 +1,7 @@
 #ifndef AUTHORS_H
 #define AUTHORS_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QtSql>
 #include <QtGui>
 #include <QSqlDatabase>
@@ -11,7 +11,7 @@ namespace Ui {
   class Authors;
 }
 
-class Authors: public QWidget {
+class Authors: public QDialog {
   Q_OBJECT
   
 public:

@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     faculties.cpp \
     departments.cpp \
     books.cpp \
-    databaseconnector.cpp
+    databaseconnector.cpp \
+    idretriever.cpp
 
 HEADERS  += mainwindow.h \
     authors.h \
     faculties.h \
     departments.h \
     books.h \
-    databaseconnector.h
+    databaseconnector.h \
+    idretriever.h
 
 FORMS    += mainwindow.ui \
     authors.ui \

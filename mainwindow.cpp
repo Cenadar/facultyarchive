@@ -9,28 +9,29 @@
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent),
     ui(new Ui::MainWindow) {
   ui->setupUi(this);
+  DatabaseConnector::init(_db);
 }
 
 MainWindow::~MainWindow() {
-  delete ui;
+  delete ui;  
 }
 
 void MainWindow::on_authorsButton_clicked() {
   Authors w(this);
-  w.show();
+  w.exec();
 }
 
 void MainWindow::on_facultiesButton_clicked() {
   Faculties w(this);
-  w.show();
+  w.exec();
 }
 
 void MainWindow::on_departmentsButton_clicked() {
-  Departments w(this);
-  w.show();
+  Departments w(_db, this);
+  w.exec();
 }
 
 void MainWindow::on_booksButton_clicked() {
-  Books w(this);
-  w.show();
+  Books w(_db, this);
+  w.exec();
 }
