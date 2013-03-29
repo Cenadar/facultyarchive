@@ -18,15 +18,9 @@ class IdRetriever {
     bool ok;
     QSqlQuery q(db);
     q.exec(queryString);
-    if (q.lastError().isValid()) {
-      qDebug() << q.executedQuery();
-      qDebug() << q.lastError();
-      return -1;
-    }
 
     QList<int> ids;
     QStringList items;
-    assert(q.record().count() == 2);
     while(q.next()) {
       ids.append(q.value(0).toInt());
       items.append(q.value(1).toString());

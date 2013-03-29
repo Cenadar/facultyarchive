@@ -11,10 +11,12 @@ Faculties::Faculties(QSqlDatabase& db, QWidget *parent): QDialog(parent),
     ui(new Ui::Faculties), _db(&db) {
   ui->setupUi(this);
 
+  _searchAgain = true;
+
   _model = new QSqlRelationalTableModel(this, *_db);
   _model->setTable("faculties");
   _model->setEditStrategy(QSqlTableModel::OnFieldChange);
-  _model->select();
+  reloadTable();
 
   QTableView* view = ui->tableView;
   view->setModel(_model);
@@ -54,7 +56,7 @@ void Faculties::on_delButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
-  _model->select();
+  reloadTable();
 }
 
 void Faculties::on_addButton_clicked() {
@@ -66,5 +68,30 @@ void Faculties::on_addButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
+  reloadTable();
+}
+
+void Faculties::on_pushButtonSearch_clicked() {
+  if (_searchAgain) {
+    _searchAgain = false;
+    QString textToFind = "'%" + ui->lineEditSearch->text() + "%'";
+    _searchQuery.exec(QString("SELECT fc_id FROM faculties WHERE "
+                              "fc_name LIKE %1;").arg(textToFind));
+  }
+  if (!_searchQuery.next() && !_searchQuery.first()) return;
+
+  int nextId = _searchQuery.value(0).toInt();
+  int row = 0;
+  while(ui->tableView->model()->index(row, 0).data().toInt() != nextId) {++row;}
+
+  ui->tableView->setCurrentIndex(ui->tableView->model()->index(row, 0));
+}
+
+void Faculties::on_lineEditSearch_textChanged(const QString&) {
+  _searchAgain = true;
+}
+
+void Faculties::reloadTable() {
   _model->select();
+  _searchAgain = true;
 }

@@ -11,11 +11,13 @@ Departments::Departments(QSqlDatabase& db, QWidget *parent): QDialog(parent),
     ui(new Ui::Departments), _db(&db) {
   ui->setupUi(this);
 
+  _searchAgain = true;
+
   _model = new QSqlRelationalTableModel(this, *_db);
   _model->setTable("departments");
   _model->setEditStrategy(QSqlTableModel::OnFieldChange);
   _model->setRelation(2, QSqlRelation("faculties", "fc_id", "fc_name"));
-  _model->select();
+  reloadTable();
 
   QTableView* view = ui->tableView;
   view->setModel(_model);
@@ -49,7 +51,7 @@ void Departments::on_delButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
-  _model->select();
+  reloadTable();
 }
 
 void Departments::on_addButton_clicked() {
@@ -66,5 +68,30 @@ void Departments::on_addButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
+  reloadTable();
+}
+
+void Departments::on_pushButtonSearch_clicked() {
+  if (_searchAgain) {
+    _searchAgain = false;
+    QString textToFind = "'%" + ui->lineEditSearch->text() + "%'";
+    _searchQuery.exec(QString("SELECT dp_id FROM departments WHERE "
+                              "dp_name LIKE %1;").arg(textToFind));
+  }
+  if (!_searchQuery.next() && !_searchQuery.first()) return;
+
+  int nextId = _searchQuery.value(0).toInt();
+  int row = 0;
+  while(ui->tableView->model()->index(row, 0).data().toInt() != nextId) {++row;}
+
+  ui->tableView->setCurrentIndex(ui->tableView->model()->index(row, 0));
+}
+
+void Departments::on_lineEditSearch_textChanged(const QString&) {
+  _searchAgain = true;
+}
+
+void Departments::reloadTable() {
   _model->select();
+  _searchAgain = true;
 }

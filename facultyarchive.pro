@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     departments.cpp \
     books.cpp \
     databaseconnector.cpp \
-    idretriever.cpp
+    idretriever.cpp \
+    yearstatistic.cpp \
+    libs/nightcharts.cpp
 
 HEADERS  += mainwindow.h \
     authors.h \
@@ -28,10 +30,13 @@ HEADERS  += mainwindow.h \
     departments.h \
     books.h \
     databaseconnector.h \
-    idretriever.h
+    idretriever.h \
+    yearstatistic.h \
+    libs/nightcharts.h
 
 FORMS    += mainwindow.ui \
     authors.ui \
     faculties.ui \
     departments.ui \
-    books.ui
+    books.ui \
+    yearstatistic.ui

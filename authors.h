@@ -18,23 +18,27 @@ public:
   explicit Authors(QSqlDatabase& db, QWidget *parent = 0);
   ~Authors();
 
-  void paintEvent(QPaintEvent *);
-  
+
 private slots:
   void on_delButton_clicked();
-
   void on_addButton_clicked();
-
   void on_addBookButton_clicked();
-
   void on_tableView_clicked(const QModelIndex &);
+  void on_delBookButton_clicked();
+  void on_pushButtonSearch_clicked();
+  void on_lineEditSearch_textChanged(const QString&);
 
 private:
+  void paintEvent(QPaintEvent *);
+  void reloadTable();
+
   Ui::Authors *ui;
   QSqlRelationalTableModel* _model;
   QSqlQueryModel* _modelBooks;
   QSqlDatabase* _db;
   int _currentId;
+  QSqlQuery _searchQuery;
+  bool _searchAgain;
 };
 
 #endif // AUTHORS_H

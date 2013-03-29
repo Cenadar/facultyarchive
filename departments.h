@@ -20,13 +20,18 @@ public:
   
 private slots:
   void on_delButton_clicked();
-
   void on_addButton_clicked();
+  void on_pushButtonSearch_clicked();
+  void on_lineEditSearch_textChanged(const QString&);
 
 private:
+  void reloadTable();
+
   Ui::Departments *ui;  
   QSqlRelationalTableModel* _model;
   QSqlDatabase* _db;
+  QSqlQuery _searchQuery;
+  bool _searchAgain;
 };
 
 #endif // DEPARTMENTS_H

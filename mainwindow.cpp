@@ -5,6 +5,7 @@
 #include "faculties.h"
 #include "departments.h"
 #include "books.h"
+#include "yearstatistic.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -33,5 +34,10 @@ void MainWindow::on_departmentsButton_clicked() {
 
 void MainWindow::on_booksButton_clicked() {
   Books w(_db, this);
+  w.exec();
+}
+
+void MainWindow::on_pushButton_clicked() {
+  YearStatistic w(_db, this);
   w.exec();
 }

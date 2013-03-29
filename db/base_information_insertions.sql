@@ -1,16 +1,16 @@
-INSERT INTO authors(au_second_name, au_first_name, au_fathers_name) VALUES
-	("Glushkov", "Victor", "Mykhailovych"),
-	("Anisimov", "Anatolii", "Vasyliovych"),
-	("Medvedev", "Mykhailo", "Gennadiiovych"),
-	("Shkilnak", "Stepan", "Stepanovych"),
-	("Bui", "Dmytro", "Borysovych"),
-	("Klushyn", "Dmytro", "Anatoliiovych"),
-	("Stavrovsky", "Andrii", "Borysovych"),
-	("Liashko", "Ivan", "Ivanovych"),
-	("Liashko", "Sergii", "Ivanovych"),
-	("Boiarchuk", "O", "K"),
-	("Garashchenko", "Fedir", "Georgiiovych"),
-	("Semenov", "Volodymyr", "Viktorovych");
+INSERT INTO authors(au_second_name, au_first_name, au_fathers_name, au_birth_year) VALUES
+	("Glushkov", "Victor", "Mykhailovych", NULL),
+	("Anisimov", "Anatolii", "Vasyliovych", NULL),
+	("Medvedev", "Mykhailo", "Gennadiiovych", NULL),
+	("Shkilnak", "Stepan", "Stepanovych", NULL),
+	("Bui", "Dmytro", "Borysovych", NULL),
+	("Klushyn", "Dmytro", "Anatoliiovych", NULL),
+	("Stavrovsky", "Andrii", "Borysovych", NULL),
+	("Liashko", "Ivan", "Ivanovych", NULL),
+	("Liashko", "Sergii", "Ivanovych", NULL),
+	("Boiarchuk", "O", "K", NULL),
+	("Garashchenko", "Fedir", "Georgiiovych", NULL),
+	("Semenov", "Volodymyr", "Viktorovych", NULL);
 
 INSERT INTO faculties(fc_name) VALUES
 	("Institute of international relations"),

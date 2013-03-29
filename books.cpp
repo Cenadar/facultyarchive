@@ -12,11 +12,13 @@ Books::Books(QSqlDatabase& db, QWidget *parent): QDialog(parent),
     ui(new Ui::Books), _db(&db) {
   ui->setupUi(this);
 
+  _searchAgain = true;
+
   _model = new QSqlRelationalTableModel(this, *_db);
   _model->setTable("books");
   _model->setEditStrategy(QSqlTableModel::OnFieldChange);
   _model->setRelation(5, QSqlRelation("departments", "dp_id", "dp_name"));
-  _model->select();
+  reloadTable();
 
   QTableView* view = ui->tableView;
   view->setModel(_model);
@@ -48,7 +50,7 @@ void Books::on_delButton_clicked(){
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
-  _model->select();
+  reloadTable();
 }
 
 void Books::on_addButton_clicked() {
@@ -65,7 +67,7 @@ void Books::on_addButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
-  _model->select();
+  reloadTable();
 }
 
 void Books::paintEvent(QPaintEvent *) {
@@ -75,7 +77,7 @@ void Books::paintEvent(QPaintEvent *) {
     _modelAuthors->clear();
   } else if (_currentId != _model->index(idx.row(), 0).data().toInt()) {
     _currentId = _model->index(idx.row(), 0).data().toInt();
-    _modelAuthors->setQuery(QString("SELECT CONCAT(au_second_name, ' ',"
+    _modelAuthors->setQuery(QString("SELECT au_id, CONCAT(au_second_name, ' ',"
                                                   "au_first_name, ' ',"
                                                   "au_fathers_name) FROM authors"
                                     " WHERE au_id IN\n"
@@ -114,5 +116,51 @@ void Books::on_addAuthorButton_clicked() {
     qDebug() << query.lastQuery();
     qDebug() << query.lastError();
   }
+  reloadTable();
+}
+
+void Books::on_delAuthorButton_clicked() {
+  QModelIndex auIdx = ui->tableAuthorsView->currentIndex();
+  QModelIndex bkIdx = ui->tableView->currentIndex();
+  if (auIdx.row() == -1 || bkIdx.row() == -1) return;
+  int au = _modelAuthors->index(auIdx.row(), 0).data().toInt();
+  int bk = _model->index(bkIdx.row(), 0).data().toInt();
+
+  QSqlQuery query(*_db);
+  query.prepare("DELETE FROM books_authors WHERE bka_au = :au AND bka_bk = :bk;");
+  query.bindValue(":au", au);
+  query.bindValue(":bk", bk);
+  query.exec();
+
+  if (query.lastError().isValid()) {
+    qDebug() << query.lastQuery();
+    qDebug() << query.lastError();
+  }
+  reloadTable();
+  paintEvent(NULL);
+}
+
+void Books::on_pushButtonSearch_clicked() {
+  if (_searchAgain) {
+    _searchAgain = false;
+    QString textToFind = "'%" + ui->lineEditSearch->text() + "%'";
+    _searchQuery.exec(QString("SELECT bk_id FROM books WHERE "
+                              "bk_name LIKE %1;").arg(textToFind));
+  }
+  if (!_searchQuery.next() && !_searchQuery.first()) return;
+
+  int nextId = _searchQuery.value(0).toInt();
+  int row = 0;
+  while(ui->tableView->model()->index(row, 0).data().toInt() != nextId) {++row;}
+
+  ui->tableView->setCurrentIndex(ui->tableView->model()->index(row, 0));
+}
+
+void Books::on_lineEditSearch_textChanged(const QString&) {
+  _searchAgain = true;
+}
+
+void Books::reloadTable() {
   _model->select();
+  _searchAgain = true;
 }

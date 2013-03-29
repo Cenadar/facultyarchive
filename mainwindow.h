@@ -20,6 +20,7 @@ private slots:
   void on_facultiesButton_clicked();
   void on_departmentsButton_clicked();
   void on_booksButton_clicked();
+  void on_pushButton_clicked();
 
 private:
   Ui::MainWindow *ui;  

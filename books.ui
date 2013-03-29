@@ -6,14 +6,32 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>311</height>
+    <width>697</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="lineEditSearch">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonSearch">
+       <property name="text">
+        <string>Find next</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -29,7 +47,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QPushButton" name="delButton">
        <property name="text">
@@ -48,6 +66,13 @@
       <widget class="QPushButton" name="addAuthorButton">
        <property name="text">
         <string>Add new author for current book</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delAuthorButton">
+       <property name="text">
+        <string>Delete author from book</string>
        </property>
       </widget>
      </item>

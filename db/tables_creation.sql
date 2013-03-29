@@ -7,6 +7,7 @@ CREATE TABLE authors (
 	au_second_name VARCHAR(255) NOT NULL,
 	au_first_name VARCHAR(255) NOT NULL,
 	au_fathers_name VARCHAR(255) NOT NULL,
+	au_birth_year INT,
 	PRIMARY KEY(au_id));
 
 CREATE TABLE faculties (
