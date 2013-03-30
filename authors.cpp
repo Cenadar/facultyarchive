@@ -129,11 +129,27 @@ void Authors::on_delBookButton_clicked() {
 void Authors::on_pushButtonSearch_clicked() {
   if (_searchAgain) {
     _searchAgain = false;
-    QString textToFind = "'%" + ui->lineEditSearch->text() + "%'";
-    _searchQuery.exec(QString("SELECT au_id FROM authors WHERE "
-                              "(au_second_name LIKE %1) OR "
-                              "(au_first_name LIKE %1) OR "
-                              "(au_fathers_name LIKE %1);").arg(textToFind));
+    QString textToFind1 = "'%" + ui->lineEditSearch_sn->text() + "%'";
+    QString textToFind2 = "'%" + ui->lineEditSearch_fn->text() + "%'";
+    QString textToFind3 = "'%" + ui->lineEditSearch_fan->text() + "%'";
+    QString textToFind4 = ui->lineEditSearch_year->text();
+    if (textToFind4.isEmpty()) {
+      _searchQuery.exec(QString("SELECT au_id FROM authors WHERE "
+                                "(au_second_name LIKE %1) AND "
+                                "(au_first_name LIKE %2) AND "
+                                "(au_fathers_name LIKE %3);").arg(textToFind1,
+                                                                  textToFind2,
+                                                                  textToFind3));
+    } else {
+      _searchQuery.exec(QString("SELECT au_id FROM authors WHERE "
+                                "(au_second_name LIKE %1) AND "
+                                "(au_first_name LIKE %2) AND "
+                                "(au_fathers_name LIKE %3) AND "
+                                "(au_birth_year = %4));").arg(textToFind1,
+                                                              textToFind2,
+                                                              textToFind3,
+                                                              textToFind4));
+    }
   }
   if (!_searchQuery.next() && !_searchQuery.first()) return;
 
@@ -144,11 +160,12 @@ void Authors::on_pushButtonSearch_clicked() {
   ui->tableView->setCurrentIndex(ui->tableView->model()->index(row, 0));
 }
 
-void Authors::on_lineEditSearch_textChanged(const QString&) {
+void Authors::reloadTable() {
+  _model->select();
   _searchAgain = true;
 }
 
-void Authors::reloadTable() {
-  _model->select();
+
+void Authors::on_pushButton_clearSearchResult_clicked() {
   _searchAgain = true;
 }

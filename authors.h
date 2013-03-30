@@ -26,7 +26,7 @@ private slots:
   void on_tableView_clicked(const QModelIndex &);
   void on_delBookButton_clicked();
   void on_pushButtonSearch_clicked();
-  void on_lineEditSearch_textChanged(const QString&);
+  void on_pushButton_clearSearchResult_clicked();
 
 private:
   void paintEvent(QPaintEvent *);
